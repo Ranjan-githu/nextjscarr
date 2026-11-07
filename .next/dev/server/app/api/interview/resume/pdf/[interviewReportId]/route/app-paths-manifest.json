@@ -1,0 +1,3 @@
+{
+  "/api/interview/resume/pdf/[interviewReportId]/route": "app/api/interview/resume/pdf/[interviewReportId]/route.js"
+}

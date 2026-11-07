@@ -1,0 +1,15 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/auth/get-me/route": "/api/auth/get-me",
+  "/api/auth/login/route": "/api/auth/login",
+  "/api/auth/logout/route": "/api/auth/logout",
+  "/api/auth/register/route": "/api/auth/register",
+  "/api/interview/report/[interviewId]/route": "/api/interview/report/[interviewId]",
+  "/api/interview/resume/pdf/[interviewReportId]/route": "/api/interview/resume/pdf/[interviewReportId]",
+  "/api/interview/route": "/api/interview",
+  "/interview/[interviewId]/page": "/interview/[interviewId]",
+  "/login/page": "/login",
+  "/page": "/",
+  "/register/page": "/register"
+}

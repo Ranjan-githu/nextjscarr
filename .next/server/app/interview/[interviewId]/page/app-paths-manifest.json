@@ -1,0 +1,3 @@
+{
+  "/interview/[interviewId]/page": "app/interview/[interviewId]/page.js"
+}
