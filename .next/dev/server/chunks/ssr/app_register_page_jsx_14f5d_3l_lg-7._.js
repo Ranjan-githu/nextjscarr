@@ -35,8 +35,10 @@ function Register() {
             })
         });
         const d = await r.json();
-        if (r.ok) router.push('/');
-        else setError(d.message || 'Registration failed');
+        if (r.ok) {
+            router.push('/');
+            router.refresh();
+        } else setError(d.message || 'Registration failed');
     }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
         className: "auth-page",
@@ -49,7 +51,7 @@ function Register() {
                 }, void 0, false, {
                     fileName: "[project]/app/register/page.jsx",
                     lineNumber: 2,
-                    columnNumber: 690
+                    columnNumber: 709
                 }, this),
                 error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                     className: "error-message",
@@ -57,7 +59,7 @@ function Register() {
                 }, void 0, false, {
                     fileName: "[project]/app/register/page.jsx",
                     lineNumber: 2,
-                    columnNumber: 721
+                    columnNumber: 740
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "input-group",
@@ -67,7 +69,7 @@ function Register() {
                         }, void 0, false, {
                             fileName: "[project]/app/register/page.jsx",
                             lineNumber: 2,
-                            columnNumber: 791
+                            columnNumber: 810
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                             required: true,
@@ -76,13 +78,13 @@ function Register() {
                         }, void 0, false, {
                             fileName: "[project]/app/register/page.jsx",
                             lineNumber: 2,
-                            columnNumber: 814
+                            columnNumber: 833
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/register/page.jsx",
                     lineNumber: 2,
-                    columnNumber: 762
+                    columnNumber: 781
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "input-group",
@@ -92,7 +94,7 @@ function Register() {
                         }, void 0, false, {
                             fileName: "[project]/app/register/page.jsx",
                             lineNumber: 2,
-                            columnNumber: 925
+                            columnNumber: 944
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                             type: "email",
@@ -102,13 +104,13 @@ function Register() {
                         }, void 0, false, {
                             fileName: "[project]/app/register/page.jsx",
                             lineNumber: 2,
-                            columnNumber: 945
+                            columnNumber: 964
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/register/page.jsx",
                     lineNumber: 2,
-                    columnNumber: 896
+                    columnNumber: 915
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "input-group",
@@ -118,7 +120,7 @@ function Register() {
                         }, void 0, false, {
                             fileName: "[project]/app/register/page.jsx",
                             lineNumber: 2,
-                            columnNumber: 1063
+                            columnNumber: 1082
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                             type: "password",
@@ -129,20 +131,20 @@ function Register() {
                         }, void 0, false, {
                             fileName: "[project]/app/register/page.jsx",
                             lineNumber: 2,
-                            columnNumber: 1086
+                            columnNumber: 1105
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("small", {
                             children: "Use at least 6 characters"
                         }, void 0, false, {
                             fileName: "[project]/app/register/page.jsx",
                             lineNumber: 2,
-                            columnNumber: 1192
+                            columnNumber: 1211
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/register/page.jsx",
                     lineNumber: 2,
-                    columnNumber: 1034
+                    columnNumber: 1053
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                     className: "button primary-button",
@@ -150,7 +152,7 @@ function Register() {
                 }, void 0, false, {
                     fileName: "[project]/app/register/page.jsx",
                     lineNumber: 2,
-                    columnNumber: 1238
+                    columnNumber: 1257
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "link-container",
@@ -160,23 +162,23 @@ function Register() {
                     }, void 0, false, {
                         fileName: "[project]/app/register/page.jsx",
                         lineNumber: 2,
-                        columnNumber: 1329
+                        columnNumber: 1348
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/app/register/page.jsx",
                     lineNumber: 2,
-                    columnNumber: 1297
+                    columnNumber: 1316
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/app/register/page.jsx",
             lineNumber: 2,
-            columnNumber: 639
+            columnNumber: 658
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/register/page.jsx",
         lineNumber: 2,
-        columnNumber: 611
+        columnNumber: 630
     }, this);
 }
 }),

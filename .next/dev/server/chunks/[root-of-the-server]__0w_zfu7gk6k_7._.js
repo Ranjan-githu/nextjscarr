@@ -194,13 +194,10 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$js__$5b$app$2d$
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$auth$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/auth.js [app-route] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$models$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/models.js [app-route] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$ai$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/ai.js [app-route] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$externals$5d2f$pdf$2d$parse__$5b$external$5d$__$28$pdf$2d$parse$2c$__esm_import$2c$__$5b$project$5d2f$node_modules$2f$pdf$2d$parse$29$__ = __turbopack_context__.i("[externals]/pdf-parse [external] (pdf-parse, esm_import, [project]/node_modules/pdf-parse)");
 var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
-    __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$ai$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__,
-    __TURBOPACK__imported__module__$5b$externals$5d2f$pdf$2d$parse__$5b$external$5d$__$28$pdf$2d$parse$2c$__esm_import$2c$__$5b$project$5d2f$node_modules$2f$pdf$2d$parse$29$__
+    __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$ai$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__
 ]);
-[__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$ai$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__, __TURBOPACK__imported__module__$5b$externals$5d2f$pdf$2d$parse__$5b$external$5d$__$28$pdf$2d$parse$2c$__esm_import$2c$__$5b$project$5d2f$node_modules$2f$pdf$2d$parse$29$__] = __turbopack_async_dependencies__.then ? (await __turbopack_async_dependencies__)() : __turbopack_async_dependencies__;
-;
+[__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$ai$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__] = __turbopack_async_dependencies__.then ? (await __turbopack_async_dependencies__)() : __turbopack_async_dependencies__;
 ;
 ;
 ;
@@ -259,14 +256,20 @@ async function POST(request) {
             }, {
                 status: 413
             });
-            const parser = new __TURBOPACK__imported__module__$5b$externals$5d2f$pdf$2d$parse__$5b$external$5d$__$28$pdf$2d$parse$2c$__esm_import$2c$__$5b$project$5d2f$node_modules$2f$pdf$2d$parse$29$__["PDFParse"]({
-                data: bytes
-            });
             try {
-                const parsed = await parser.getText();
-                resume = (parsed.text || '').slice(0, 50000);
-            } finally{
-                await parser.destroy();
+                const { PDFParse } = await __turbopack_context__.A("[externals]/pdf-parse [external] (pdf-parse, esm_import, [project]/node_modules/pdf-parse, async loader)");
+                const parser = new PDFParse({
+                    data: bytes
+                });
+                try {
+                    const parsed = await parser.getText();
+                    resume = (parsed.text || '').slice(0, 50000);
+                } finally{
+                    await parser.destroy();
+                }
+            } catch (pdfError) {
+                console.warn('Resume PDF parsing unavailable; continuing without resume text', pdfError);
+                resume = '';
             }
         }
         const aiReport = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$ai$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["generateInterviewReport"])({
@@ -384,24 +387,48 @@ function escapeHtml(value = '') {
         })[c]);
 }
 async function generateResumePdf({ resume, selfDescription, jobDescription }) {
-    const ai = aiClient();
-    const prompt = `Create a resume JSON object with these fields only: fullName, summary, skills (array), experience (array of {role,company,details}), education (array). Tailor it to this job. Return only valid JSON. Resume: ${resume}. Self description: ${selfDescription}. Job description: ${jobDescription}.`;
-    const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
-        contents: prompt
-    });
-    const data = JSON.parse(response.text.replace(/```json|```/g, '').trim());
+    let data;
+    try {
+        const ai = aiClient();
+        const prompt = `Create a resume JSON object with these fields only: fullName, summary, skills (array), experience (array of {role,company,details}), education (array). Tailor it to this job. Resume: ${resume}. Self description: ${selfDescription}. Job description: ${jobDescription}.`;
+        const response = await ai.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: prompt
+        });
+        data = JSON.parse(response.text.replace(/```json|```/g, '').trim());
+    } catch (error) {
+        console.warn('AI resume enhancement unavailable; using fallback resume data', error);
+        const words = jobDescription.match(/[A-Za-z][A-Za-z+#.-]{1,}/g) || [];
+        const skills = [
+            ...new Set(words.slice(0, 12))
+        ];
+        data = {
+            fullName: 'Candidate',
+            summary: selfDescription || resume?.slice(0, 500) || 'Professional candidate seeking this role.',
+            skills,
+            experience: [
+                {
+                    role: 'Relevant Experience',
+                    company: '',
+                    details: resume || selfDescription || 'Experience details were not provided.'
+                }
+            ],
+            education: [
+                'Education details were not provided.'
+            ]
+        };
+    }
     const html = `<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Arial,sans-serif;margin:30px;color:#111}h1{font-size:28px;border-bottom:2px solid #333;padding-bottom:8px}.summary,.skills,.section{margin:16px 0}.skills{line-height:1.8}</style></head><body><h1>${escapeHtml(data.fullName || 'Candidate')}</h1><div class="summary"><strong>Professional Summary</strong><p>${escapeHtml(data.summary)}</p></div><div class="skills"><strong>Skills</strong><p>${(Array.isArray(data.skills) ? data.skills : []).map(escapeHtml).join(', ')}</p></div><div class="section"><strong>Experience</strong>${(Array.isArray(data.experience) ? data.experience : []).map((x)=>`<h3>${escapeHtml(x.role)}${x.company ? ` — ${escapeHtml(x.company)}` : ''}</h3><p>${escapeHtml(x.details)}</p>`).join('')}</div><div class="section"><strong>Education</strong><p>${(Array.isArray(data.education) ? data.education.map(escapeHtml) : []).join('<br>')}</p></div></body></html>`;
     const browser = await __TURBOPACK__imported__module__$5b$externals$5d2f$puppeteer__$5b$external$5d$__$28$puppeteer$2c$__esm_import$2c$__$5b$project$5d2f$node_modules$2f$puppeteer$29$__["default"].launch({
         headless: true,
         args: [
-            '--disable-gpu'
+            '--disable-gpu',
+            '--no-sandbox',
+            '--disable-setuid-sandbox'
         ]
     });
     try {
         const page = await browser.newPage();
-        await page.setRequestInterception(true);
-        page.on('request', (request)=>request.abort());
         await page.setContent(html, {
             waitUntil: 'domcontentloaded'
         });

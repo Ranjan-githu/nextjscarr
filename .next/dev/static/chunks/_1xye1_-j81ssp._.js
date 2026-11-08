@@ -41,18 +41,35 @@ function Interview() {
         interviewId,
         router
     ]);
+    const [downloading, setDownloading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [downloadError, setDownloadError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     async function downloadPdf() {
-        const r = await fetch(`/api/interview/resume/pdf/${interviewId}`, {
-            method: 'POST'
-        });
-        if (!r.ok) return;
-        const blob = await r.blob();
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `resume_${interviewId}.pdf`;
-        a.click();
-        URL.revokeObjectURL(url);
+        setDownloading(true);
+        setDownloadError('');
+        try {
+            const r = await fetch(`/api/interview/resume/pdf/${interviewId}`, {
+                method: 'POST',
+                credentials: 'include'
+            });
+            if (!r.ok) {
+                const data = await r.json().catch(()=>null);
+                throw new Error(data?.message || 'Failed to generate resume PDF');
+            }
+            const blob = await r.blob();
+            if (!blob.size) throw new Error('Generated resume PDF is empty');
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `resume_${interviewId}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            setTimeout(()=>URL.revokeObjectURL(url), 1000);
+        } catch (error) {
+            setDownloadError(error instanceof Error ? error.message : 'Could not download the resume PDF');
+        } finally{
+            setDownloading(false);
+        }
     }
     if (loading) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
         className: "loading-screen",
@@ -61,12 +78,12 @@ function Interview() {
         }, void 0, false, {
             fileName: "[project]/app/interview/[interviewId]/page.jsx",
             lineNumber: 2,
-            columnNumber: 897
+            columnNumber: 1430
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/interview/[interviewId]/page.jsx",
         lineNumber: 2,
-        columnNumber: 864
+        columnNumber: 1397
     }, this);
     if (!report) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -74,12 +91,12 @@ function Interview() {
         }, void 0, false, {
             fileName: "[project]/app/interview/[interviewId]/page.jsx",
             lineNumber: 2,
-            columnNumber: 955
+            columnNumber: 1488
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/interview/[interviewId]/page.jsx",
         lineNumber: 2,
-        columnNumber: 949
+        columnNumber: 1482
     }, this);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
         className: "interview-page",
@@ -91,7 +108,7 @@ function Interview() {
                     }, void 0, false, {
                         fileName: "[project]/app/interview/[interviewId]/page.jsx",
                         lineNumber: 2,
-                        columnNumber: 1036
+                        columnNumber: 1569
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                         children: [
@@ -102,22 +119,31 @@ function Interview() {
                     }, void 0, true, {
                         fileName: "[project]/app/interview/[interviewId]/page.jsx",
                         lineNumber: 2,
-                        columnNumber: 1079
+                        columnNumber: 1612
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         className: "button primary-button",
                         onClick: downloadPdf,
-                        children: "Generate Tailored Resume PDF"
+                        disabled: downloading,
+                        children: downloading ? 'Generating PDF...' : 'Generate Tailored Resume PDF'
                     }, void 0, false, {
                         fileName: "[project]/app/interview/[interviewId]/page.jsx",
                         lineNumber: 2,
-                        columnNumber: 1119
+                        columnNumber: 1652
+                    }, this),
+                    downloadError && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "error-message",
+                        children: downloadError
+                    }, void 0, false, {
+                        fileName: "[project]/app/interview/[interviewId]/page.jsx",
+                        lineNumber: 2,
+                        columnNumber: 1828
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/interview/[interviewId]/page.jsx",
                 lineNumber: 2,
-                columnNumber: 1028
+                columnNumber: 1561
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
                 children: [
@@ -126,7 +152,7 @@ function Interview() {
                     }, void 0, false, {
                         fileName: "[project]/app/interview/[interviewId]/page.jsx",
                         lineNumber: 2,
-                        columnNumber: 1238
+                        columnNumber: 1895
                     }, this),
                     report.technicalQuestions?.map((q, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("article", {
                             className: "q-card",
@@ -136,7 +162,7 @@ function Interview() {
                                 }, void 0, false, {
                                     fileName: "[project]/app/interview/[interviewId]/page.jsx",
                                     lineNumber: 2,
-                                    columnNumber: 1341
+                                    columnNumber: 1998
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                     children: [
@@ -145,7 +171,7 @@ function Interview() {
                                         }, void 0, false, {
                                             fileName: "[project]/app/interview/[interviewId]/page.jsx",
                                             lineNumber: 2,
-                                            columnNumber: 1365
+                                            columnNumber: 2022
                                         }, this),
                                         " ",
                                         q.intention
@@ -153,7 +179,7 @@ function Interview() {
                                 }, void 0, true, {
                                     fileName: "[project]/app/interview/[interviewId]/page.jsx",
                                     lineNumber: 2,
-                                    columnNumber: 1362
+                                    columnNumber: 2019
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                     children: [
@@ -162,7 +188,7 @@ function Interview() {
                                         }, void 0, false, {
                                             fileName: "[project]/app/interview/[interviewId]/page.jsx",
                                             lineNumber: 2,
-                                            columnNumber: 1413
+                                            columnNumber: 2070
                                         }, this),
                                         " ",
                                         q.answer
@@ -170,19 +196,19 @@ function Interview() {
                                 }, void 0, true, {
                                     fileName: "[project]/app/interview/[interviewId]/page.jsx",
                                     lineNumber: 2,
-                                    columnNumber: 1410
+                                    columnNumber: 2067
                                 }, this)
                             ]
                         }, i, true, {
                             fileName: "[project]/app/interview/[interviewId]/page.jsx",
                             lineNumber: 2,
-                            columnNumber: 1305
+                            columnNumber: 1962
                         }, this))
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/interview/[interviewId]/page.jsx",
                 lineNumber: 2,
-                columnNumber: 1229
+                columnNumber: 1886
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
                 children: [
@@ -191,7 +217,7 @@ function Interview() {
                     }, void 0, false, {
                         fileName: "[project]/app/interview/[interviewId]/page.jsx",
                         lineNumber: 2,
-                        columnNumber: 1483
+                        columnNumber: 2140
                     }, this),
                     report.behavioralQuestions?.map((q, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("article", {
                             className: "q-card",
@@ -201,26 +227,26 @@ function Interview() {
                                 }, void 0, false, {
                                     fileName: "[project]/app/interview/[interviewId]/page.jsx",
                                     lineNumber: 2,
-                                    columnNumber: 1588
+                                    columnNumber: 2245
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                     children: q.answer
                                 }, void 0, false, {
                                     fileName: "[project]/app/interview/[interviewId]/page.jsx",
                                     lineNumber: 2,
-                                    columnNumber: 1609
+                                    columnNumber: 2266
                                 }, this)
                             ]
                         }, i, true, {
                             fileName: "[project]/app/interview/[interviewId]/page.jsx",
                             lineNumber: 2,
-                            columnNumber: 1552
+                            columnNumber: 2209
                         }, this))
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/interview/[interviewId]/page.jsx",
                 lineNumber: 2,
-                columnNumber: 1474
+                columnNumber: 2131
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
                 children: [
@@ -229,7 +255,7 @@ function Interview() {
                     }, void 0, false, {
                         fileName: "[project]/app/interview/[interviewId]/page.jsx",
                         lineNumber: 2,
-                        columnNumber: 1657
+                        columnNumber: 2314
                     }, this),
                     report.preparationPlan?.map((d)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("article", {
                             children: [
@@ -243,7 +269,7 @@ function Interview() {
                                 }, void 0, true, {
                                     fileName: "[project]/app/interview/[interviewId]/page.jsx",
                                     lineNumber: 2,
-                                    columnNumber: 1735
+                                    columnNumber: 2392
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
                                     children: d.tasks?.map((t, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -251,33 +277,33 @@ function Interview() {
                                         }, i, false, {
                                             fileName: "[project]/app/interview/[interviewId]/page.jsx",
                                             lineNumber: 2,
-                                            columnNumber: 1791
+                                            columnNumber: 2448
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/app/interview/[interviewId]/page.jsx",
                                     lineNumber: 2,
-                                    columnNumber: 1766
+                                    columnNumber: 2423
                                 }, this)
                             ]
                         }, d.day, true, {
                             fileName: "[project]/app/interview/[interviewId]/page.jsx",
                             lineNumber: 2,
-                            columnNumber: 1714
+                            columnNumber: 2371
                         }, this))
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/interview/[interviewId]/page.jsx",
                 lineNumber: 2,
-                columnNumber: 1648
+                columnNumber: 2305
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/interview/[interviewId]/page.jsx",
         lineNumber: 2,
-        columnNumber: 995
+        columnNumber: 1528
     }, this);
 }
-_s(Interview, "l6KGKjFrvyzOWg3V0xWJ6Uhaf34=", false, function() {
+_s(Interview, "1NzONchOIKFYsbBfD2x7STaeSsY=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useParams"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
