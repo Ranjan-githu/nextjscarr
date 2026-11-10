@@ -274,7 +274,14 @@ function aiClient() {
 }
 async function generateInterviewReport({ resume, selfDescription, jobDescription }) {
     const ai = aiClient();
-    const prompt = `Generate a detailed interview report as JSON with fields: matchScore (0-100 integer), title, technicalQuestions [{question,intention,answer}], behavioralQuestions [{question,intention,answer}], skillGaps [{skill,severity}] where severity is one of low, medium, high, preparationPlan [{day (integer),focus,tasks:[string]}]. Resume: ${resume}. Self description: ${selfDescription}. Job description: ${jobDescription}. Return only valid JSON.`;
+    const prompt = `Generate a detailed interview report as JSON with fields: \
+matchScore (0-100 integer), title, technicalQuestions \
+[{question,intention,answer}], behavioralQuestions \
+[{question,intention,answer}], skillGaps [{skill,severity}] where \
+severity is one of low, medium, high, preparationPlan \
+[{day (integer),focus,tasks:[string]}]. Resume: ${resume}. \
+Self description: ${selfDescription}. Job description: ${jobDescription}. \
+Return only valid JSON.`;
     const response = await ai.models.generateContent({
         model: 'gemini-2.5-flash',
         contents: prompt
@@ -295,7 +302,11 @@ async function generateResumePdf({ resume, selfDescription, jobDescription }) {
     let data;
     try {
         const ai = aiClient();
-        const prompt = `Create a resume JSON object with these fields only: fullName, summary, skills (array), experience (array of {role,company,details}), education (array). Tailor it to this job. Resume: ${resume}. Self description: ${selfDescription}. Job description: ${jobDescription}.`;
+        const prompt = `Create a resume JSON object with these fields only: \
+fullName, summary, skills (array), experience \
+(array of {role,company,details}), education (array). Tailor it to this job. \
+Resume: ${resume}. Self description: ${selfDescription}. \
+Job description: ${jobDescription}.`;
         const response = await ai.models.generateContent({
             model: 'gemini-2.5-flash',
             contents: prompt
@@ -323,7 +334,25 @@ async function generateResumePdf({ resume, selfDescription, jobDescription }) {
             ]
         };
     }
-    const html = `<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Arial,sans-serif;margin:30px;color:#111}h1{font-size:28px;border-bottom:2px solid #333;padding-bottom:8px}.summary,.skills,.section{margin:16px 0}.skills{line-height:1.8}</style></head><body><h1>${escapeHtml(data.fullName || 'Candidate')}</h1><div class="summary"><strong>Professional Summary</strong><p>${escapeHtml(data.summary)}</p></div><div class="skills"><strong>Skills</strong><p>${(Array.isArray(data.skills) ? data.skills : []).map(escapeHtml).join(', ')}</p></div><div class="section"><strong>Experience</strong>${(Array.isArray(data.experience) ? data.experience : []).map((x)=>`<h3>${escapeHtml(x.role)}${x.company ? ` — ${escapeHtml(x.company)}` : ''}</h3><p>${escapeHtml(x.details)}</p>`).join('')}</div><div class="section"><strong>Education</strong><p>${(Array.isArray(data.education) ? data.education.map(escapeHtml) : []).join('<br>')}</p></div></body></html>`;
+    const html = `<!doctype html>\
+<html>\
+<head>\
+<meta charset="utf-8">\
+<style>\
+body{font-family:Arial,sans-serif;margin:30px;color:#111}\
+h1{font-size:28px;border-bottom:2px solid #333;padding-bottom:8px}\
+.summary,.skills,.section{margin:16px 0}\
+.skills{line-height:1.8}\
+</style>\
+</head>\
+<body>\
+<h1>${escapeHtml(data.fullName || 'Candidate')}</h1>\
+<div class="summary"><strong>Professional Summary</strong><p>${escapeHtml(data.summary)}</p></div>\
+<div class="skills"><strong>Skills</strong><p>${(Array.isArray(data.skills) ? data.skills : []).map(escapeHtml).join(', ')}</p></div>\
+<div class="section"><strong>Experience</strong>${(Array.isArray(data.experience) ? data.experience : []).map((x)=>`<h3>${escapeHtml(x.role)}${x.company ? ` — ${escapeHtml(x.company)}` : ''}</h3><p>${escapeHtml(x.details)}</p>`).join('')}</div>\
+<div class="section"><strong>Education</strong><p>${(Array.isArray(data.education) ? data.education.map(escapeHtml) : []).join('<br>')}</p></div>\
+</body>\
+</html>`;
     const browser = await __TURBOPACK__imported__module__$5b$externals$5d2f$puppeteer__$5b$external$5d$__$28$puppeteer$2c$__esm_import$2c$__$5b$project$5d2f$node_modules$2f$puppeteer$29$__["default"].launch({
         headless: true,
         args: [

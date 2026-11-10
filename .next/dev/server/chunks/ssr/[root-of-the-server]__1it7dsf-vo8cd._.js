@@ -76,8 +76,8 @@ function AuthProvider({ children }) {
         children: children
     }, void 0, false, {
         fileName: "[project]/components/auth-provider.jsx",
-        lineNumber: 1,
-        columnNumber: 411
+        lineNumber: 14,
+        columnNumber: 5
     }, this);
 }
 function useAuth() {
@@ -115,8 +115,8 @@ function InterviewProvider({ children }) {
         children: children
     }, void 0, false, {
         fileName: "[project]/components/interview-provider.jsx",
-        lineNumber: 1,
-        columnNumber: 286
+        lineNumber: 13,
+        columnNumber: 5
     }, this);
 }
 function useInterview() {

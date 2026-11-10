@@ -1,2 +1,24 @@
-import {NextResponse} from 'next/server';import {connectDB} from '../../../../../lib/db';import {getUserFromRequest} from '../../../../../lib/auth';import {InterviewReport} from '../../../../../lib/models';
-export async function GET(request,{params}){await connectDB();const user=await getUserFromRequest();if(!user)return NextResponse.json({message:'Token not provided.'},{status:401});const {interviewId}=await params;const report=await InterviewReport.findOne({_id:interviewId,user:user.id});if(!report)return NextResponse.json({message:'Interview report not found.'},{status:404});return NextResponse.json({interviewReport:report});}
+import { NextResponse } from 'next/server';
+import { connectDB } from '../../../../../lib/db';
+import { getUserFromRequest } from '../../../../../lib/auth';
+import { InterviewReport } from '../../../../../lib/models';
+export async function GET(request, { params }) {
+  await connectDB();
+  const user = await getUserFromRequest();
+  if (!user)
+    return NextResponse.json(
+      { message: 'Token not provided.' },
+      { status: 401 }
+    );
+  const { interviewId } = await params;
+  const report = await InterviewReport.findOne({
+    _id: interviewId,
+    user: user.id,
+  });
+  if (!report)
+    return NextResponse.json(
+      { message: 'Interview report not found.' },
+      { status: 404 }
+    );
+  return NextResponse.json({ interviewReport: report });
+}

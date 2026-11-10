@@ -1,1 +1,21 @@
-'use client';import {createContext,useContext,useEffect,useState} from 'react';export const AuthContext=createContext(null);export function AuthProvider({children}){const[user,setUser]=useState(null);const[loading,setLoading]=useState(true);useEffect(()=>{fetch('/api/auth/get-me',{credentials:'include'}).then(r=>r.ok?r.json():null).then(d=>setUser(d?.user||null)).finally(()=>setLoading(false));},[]);return <AuthContext.Provider value={{user,setUser,loading,setLoading}}>{children}</AuthContext.Provider>}export function useAuth(){return useContext(AuthContext);}
+'use client';
+import { createContext, useContext, useEffect, useState } from 'react';
+export const AuthContext = createContext(null);
+export function AuthProvider({ children }) {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    fetch('/api/auth/get-me', { credentials: 'include' })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => setUser(d?.user || null))
+      .finally(() => setLoading(false));
+  }, []);
+  return (
+    <AuthContext.Provider value={{ user, setUser, loading, setLoading }}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
+export function useAuth() {
+  return useContext(AuthContext);
+}
