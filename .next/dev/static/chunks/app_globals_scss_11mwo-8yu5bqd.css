@@ -155,4 +155,147 @@ html, body, #root {
   margin-top: 1rem;
 }
 
+.feedback-board {
+  background: #141b2deb;
+  border: 1px solid #34405a;
+  border-radius: 16px;
+  width: 100%;
+  margin: 0 auto 3rem;
+  padding: 1.5rem;
+}
+
+.feedback-board__header, .feedback-card__header {
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  display: flex;
+}
+
+.feedback-board__eyebrow, .feedback-live-status, .feedback-card time {
+  color: #aab5ca;
+  font-size: .875rem;
+}
+
+.feedback-board__summary {
+  align-items: center;
+  gap: .5rem;
+  display: flex;
+}
+
+.feedback-board__summary > strong {
+  font-size: 1.5rem;
+}
+
+.feedback-stars {
+  color: #64748b;
+  gap: .2rem;
+  display: inline-flex;
+}
+
+.feedback-star {
+  color: #64748b;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.feedback-star.is-selected {
+  color: #fbbf24;
+}
+
+button.feedback-star {
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: .1rem;
+}
+
+button.feedback-star:focus-visible {
+  outline-offset: 2px;
+  outline: 2px solid #ff7aa2;
+}
+
+.feedback-live-status {
+  margin-top: .5rem;
+}
+
+.feedback-form {
+  background: #0f1627;
+  border-radius: 12px;
+  gap: .9rem;
+  margin: 1.5rem 0;
+  padding: 1.25rem;
+  display: grid;
+}
+
+.feedback-form__rating {
+  border: 0;
+  gap: .5rem;
+  display: grid;
+}
+
+.feedback-form__comment {
+  gap: .5rem;
+  display: grid;
+}
+
+.feedback-form__comment textarea {
+  color: #fff;
+  width: 100%;
+  font: inherit;
+  resize: vertical;
+  background: #0b1020;
+  border: 1px solid #34405a;
+  border-radius: 8px;
+  padding: .75rem;
+}
+
+.feedback-form__comment span {
+  color: #aab5ca;
+  justify-self: end;
+  font-size: .8rem;
+}
+
+.feedback-form button:disabled {
+  cursor: not-allowed;
+  opacity: .6;
+}
+
+.feedback-success {
+  color: #86efac;
+}
+
+.feedback-list {
+  gap: .75rem;
+  display: grid;
+}
+
+.feedback-card {
+  background: #0f1627;
+  border: 1px solid #34405a;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.feedback-card h4 {
+  margin-bottom: .25rem;
+}
+
+.feedback-card > p {
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  margin-top: .75rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .feedback-board {
+    padding: 1rem;
+  }
+
+  .feedback-board__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
 /*# sourceMappingURL=app_globals_scss_11mwo-8yu5bqd.css.map*/

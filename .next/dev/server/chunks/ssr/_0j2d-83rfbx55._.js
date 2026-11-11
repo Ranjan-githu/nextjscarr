@@ -28,23 +28,23 @@ function RootLayout({ children }) {
                     children: children
                 }, void 0, false, {
                     fileName: "[project]/app/layout.jsx",
-                    lineNumber: 2,
-                    columnNumber: 187
+                    lineNumber: 13,
+                    columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/layout.jsx",
-                lineNumber: 2,
-                columnNumber: 173
+                lineNumber: 12,
+                columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/app/layout.jsx",
-            lineNumber: 2,
-            columnNumber: 167
+            lineNumber: 11,
+            columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/layout.jsx",
-        lineNumber: 2,
-        columnNumber: 151
+        lineNumber: 10,
+        columnNumber: 5
     }, this);
 }
 }),

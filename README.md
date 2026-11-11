@@ -16,6 +16,7 @@ The project uses Next.js App Router for both the UI and backend API routes, so i
 - Day-by-day preparation plan
 - AI-tailored resume PDF generation
 - Interview report history
+- App-wide star ratings and user comments with live updates
 
 ## Technology Stack
 
@@ -42,10 +43,11 @@ carr-nextjs/
 │   │   │   ├── login/route.js
 │   │   │   ├── logout/route.js
 │   │   │   └── get-me/route.js
-│   │   └── interview/
-│   │       ├── route.js
-│   │       ├── report/[interviewId]/route.js
-│   │       └── resume/pdf/[interviewReportId]/route.js
+│   │       ├── interview/
+│   │       │   ├── route.js
+│   │       │   ├── report/[interviewId]/route.js
+│   │       │   └── resume/pdf/[interviewReportId]/route.js
+│   │       └── feedback/route.js
 │   ├── interview/[interviewId]/page.jsx
 │   ├── login/page.jsx
 │   ├── register/page.jsx
@@ -54,7 +56,8 @@ carr-nextjs/
 │   └── globals.scss
 ├── components/
 │   ├── auth-provider.jsx
-│   └── interview-provider.jsx
+│   ├── interview-provider.jsx
+│   └── feedback-board.jsx
 ├── lib/
 │   ├── ai.js
 │   ├── auth.js
@@ -114,6 +117,15 @@ The report page requests `/api/interview/resume/pdf/[interviewReportId]`. The AP
 | POST | `/api/interview` | Generate and store a new report |
 | GET | `/api/interview/report/[interviewId]` | Get one report owned by the user |
 | POST | `/api/interview/resume/pdf/[interviewReportId]` | Generate a tailored resume PDF |
+
+### Feedback
+
+| Method | Route | Purpose |
+|---|---|---|
+| GET | `/api/feedback` | Return the latest feedback, overall average, review count, and the signed-in user's review |
+| POST | `/api/feedback` | Create or update the signed-in user's 1–5 star rating and comment |
+
+The feedback board is shared across authenticated users. Each account can maintain one review, which can be updated later. Comments show the user's username and review time; email addresses are not exposed. The board refreshes every 10 seconds while its page is visible and refreshes immediately after a submission. This polling approach works with Vercel serverless functions without requiring a persistent WebSocket server.
 
 ## Environment Variables
 
@@ -188,6 +200,13 @@ The existing `vercel.json` explicitly identifies the project as Next.js.
 - Skill gaps
 - Preparation plan
 - Job title
+- Creation and update timestamps
+
+### Feedback
+
+- Owner user ID (unique; one review per account)
+- Star rating (1–5)
+- Comment (up to 1000 characters)
 - Creation and update timestamps
 
 ### Blacklist

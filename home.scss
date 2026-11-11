@@ -1,445 +1,469 @@
-@use "sass:color";
+@use 'sass:color';
 
 // ── Variables ────────────────────────────────────────────────────────────────
-$bg-page:        transparent;
-$bg-card:        rgba(20, 27, 42, 0.85);
-$bg-panel:       rgba(30, 39, 60, 0.8);
-$bg-input:       rgba(34, 45, 68, 0.9);
-$border-color:   rgba(74, 85, 104, 0.4);
-$text-primary:   #f0f4f8;
-$text-muted:     #94a3b8;
-$accent:         #6366f1;
-$accent-alt:     #8b5cf6;
-$accent-light:   #a5b4fc;
+$bg-page: transparent;
+$bg-card: rgba(20, 27, 42, 0.85);
+$bg-panel: rgba(30, 39, 60, 0.8);
+$bg-input: rgba(34, 45, 68, 0.9);
+$border-color: rgba(74, 85, 104, 0.4);
+$text-primary: #f0f4f8;
+$text-muted: #94a3b8;
+$accent: #6366f1;
+$accent-alt: #8b5cf6;
+$accent-light: #a5b4fc;
 $badge-required: #ef4444;
-$badge-best:     #f59e0b;
-$info-bg:        rgba(59, 130, 246, 0.1);
-$info-border:    rgba(59, 130, 246, 0.3);
-$font-stack:     system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+$badge-best: #f59e0b;
+$info-bg: rgba(59, 130, 246, 0.1);
+$info-border: rgba(59, 130, 246, 0.3);
+$font-stack:
+  system-ui,
+  -apple-system,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  Roboto,
+  sans-serif;
 
 // ── Page Shell ───────────────────────────────────────────────────────────────
 .home-page {
-    width: 100%;
-    min-height: 100vh;
-    background-color: $bg-page;
-    color: $text-primary;
-    font-family: $font-stack;
+  width: 100%;
+  min-height: 100vh;
+  background-color: $bg-page;
+  color: $text-primary;
+  font-family: $font-stack;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 3rem 1.5rem;
-    gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  gap: 2rem;
 }
 
 // ── Page Header ──────────────────────────────────────────────────────────────
 .page-header {
-    text-align: center;
+  text-align: center;
 
-    h1 {
-        font-size: 2.5rem;
-        font-weight: 800;
-        margin-bottom: 0.75rem;
-        color: $text-primary;
-        text-shadow: 0 4px 24px rgba(99, 102, 241, 0.3);
-    }
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+    color: $text-primary;
+    text-shadow: 0 4px 24px rgba(99, 102, 241, 0.3);
+  }
 
-    p {
-        color: $text-muted;
-        font-size: 1rem;
-        max-width: 540px;
-        margin: 0 auto;
-        line-height: 1.7;
-    }
+  p {
+    color: $text-muted;
+    font-size: 1rem;
+    max-width: 540px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
 }
 
 // ── Main Card ─────────────────────────────────────────────────────────────────
 .interview-card {
-    width: 100%;
-    max-width: 950px;
-    background-color: $bg-card;
-    border: 1px solid $border-color;
-    border-radius: 1.5rem;
-    overflow: hidden;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5),
-                0 0 0 1px rgba(255, 255, 255, 0.05) inset;
-    animation: fadeInUp 0.6s ease-out;
+  width: 100%;
+  max-width: 950px;
+  background-color: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  animation: fadeInUp 0.6s ease-out;
 
-    &__body {
-        display: flex;
-        min-height: 540px;
+  &__body {
+    display: flex;
+    min-height: 540px;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 2rem;
+    border-top: 1px solid $border-color;
+    background: linear-gradient(
+      90deg,
+      rgba(99, 102, 241, 0.05) 0%,
+      rgba(139, 92, 246, 0.05) 100%
+    );
+
+    .footer-info {
+      font-size: 0.85rem;
+      color: $text-muted;
+      font-weight: 500;
     }
-
-    &__footer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1.25rem 2rem;
-        border-top: 1px solid $border-color;
-        background: linear-gradient(90deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
-
-        .footer-info {
-            font-size: 0.85rem;
-            color: $text-muted;
-            font-weight: 500;
-        }
-    }
+  }
 }
 
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 // ── Panels ────────────────────────────────────────────────────────────────────
 .panel-divider {
-    width: 1px;
-    background: linear-gradient(180deg, transparent 0%, $border-color 50%, transparent 100%);
-    flex-shrink: 0;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    $border-color 50%,
+    transparent 100%
+  );
+  flex-shrink: 0;
 }
 
 .panel {
-    flex: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 2rem;
+
+  &__header {
     display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    padding: 2rem;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
 
-    &__header {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        margin-bottom: 0.5rem;
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: $text-primary;
+      flex: 1;
+    }
+  }
 
-        h2 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: $text-primary;
-            flex: 1;
-        }
+  &__icon {
+    display: flex;
+    align-items: center;
+    color: $accent;
+    filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.4));
+  }
+
+  &__textarea {
+    flex: 1;
+    width: 100%;
+    background-color: $bg-input;
+    border: 1px solid $border-color;
+    border-radius: 1rem;
+    padding: 1rem 1.25rem;
+    color: $text-primary;
+    font-family: $font-stack;
+    font-size: 0.95rem;
+    resize: none;
+    outline: none;
+    transition: all 0.3s ease;
+    line-height: 1.6;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) inset;
+
+    &::placeholder {
+      color: $text-muted;
     }
 
-    &__icon {
-        display: flex;
-        align-items: center;
-        color: $accent;
-        filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.4));
+    &:focus {
+      border-color: $accent;
+      box-shadow:
+        0 0 0 3px rgba(99, 102, 241, 0.1),
+        0 4px 6px -1px rgba(0, 0, 0, 0.1) inset;
     }
 
-    &__textarea {
-        flex: 1;
-        width: 100%;
-        background-color: $bg-input;
-        border: 1px solid $border-color;
-        border-radius: 1rem;
-        padding: 1rem 1.25rem;
-        color: $text-primary;
-        font-family: $font-stack;
-        font-size: 0.95rem;
-        resize: none;
-        outline: none;
-        transition: all 0.3s ease;
-        line-height: 1.6;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) inset;
-
-        &::placeholder {
-            color: $text-muted;
-        }
-
-        &:focus {
-            border-color: $accent;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1), 0 4px 6px -1px rgba(0, 0, 0, 0.1) inset;
-        }
-
-        &--short {
-            flex: unset;
-            height: 110px;
-        }
+    &--short {
+      flex: unset;
+      height: 110px;
     }
+  }
 
-    &--left {
-        position: relative;
+  &--left {
+    position: relative;
 
-        .char-counter {
-            position: absolute;
-            bottom: 2.5rem;
-            right: 2.5rem;
-            font-size: 0.75rem;
-            color: $text-muted;
-            font-weight: 600;
-        }
+    .char-counter {
+      position: absolute;
+      bottom: 2.5rem;
+      right: 2.5rem;
+      font-size: 0.75rem;
+      color: $text-muted;
+      font-weight: 600;
     }
+  }
 
-    &--right {
-        gap: 1rem;
-    }
+  &--right {
+    gap: 1rem;
+  }
 }
 
 // ── Badges ────────────────────────────────────────────────────────────────────
 .badge {
-    font-size: 0.7rem;
-    font-weight: 700;
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 
-    &--required {
-        background-color: rgba($badge-required, 0.15);
-        color: $badge-required;
-        border: 1px solid rgba($badge-required, 0.3);
-    }
+  &--required {
+    background-color: rgba($badge-required, 0.15);
+    color: $badge-required;
+    border: 1px solid rgba($badge-required, 0.3);
+  }
 
-    &--best {
-        background-color: rgba($badge-best, 0.15);
-        color: $badge-best;
-        border: 1px solid rgba($badge-best, 0.3);
-    }
+  &--best {
+    background-color: rgba($badge-best, 0.15);
+    color: $badge-best;
+    border: 1px solid rgba($badge-best, 0.3);
+  }
 }
 
 // ── Section Label ─────────────────────────────────────────────────────────────
 .section-label {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: $text-primary;
-    margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: 0.5rem;
 }
 
 // ── Dropzone ──────────────────────────────────────────────────────────────────
 .upload-section {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .dropzone {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 2rem 1.5rem;
-    background-color: $bg-input;
-    border: 2px dashed $border-color;
-    border-radius: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 2rem 1.5rem;
+  background-color: $bg-input;
+  border: 2px dashed $border-color;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
 
-    &:hover {
-        border-color: $accent;
-        background-color: rgba(99, 102, 241, 0.08);
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.2);
-    }
+  &:hover {
+    border-color: $accent;
+    background-color: rgba(99, 102, 241, 0.08);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.2);
+  }
 
-    &__icon {
-        color: $accent;
-        margin-bottom: 0.25rem;
-        filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.3));
-    }
+  &__icon {
+    color: $accent;
+    margin-bottom: 0.25rem;
+    filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.3));
+  }
 
-    &__title {
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: $text-primary;
-        margin: 0;
-    }
+  &__title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin: 0;
+  }
 
-    &__subtitle {
-        font-size: 0.8rem;
-        color: $text-muted;
-        margin: 0;
-    }
+  &__subtitle {
+    font-size: 0.8rem;
+    color: $text-muted;
+    margin: 0;
+  }
 }
 
 // ── OR Divider ────────────────────────────────────────────────────────────────
 .or-divider {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    color: $text-muted;
-    font-size: 0.75rem;
-    font-weight: 600;
-    margin: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: $text-muted;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin: 0.5rem 0;
 
-    &::before,
-    &::after {
-        content: '';
-        flex: 1;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, $border-color, transparent);
-    }
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, $border-color, transparent);
+  }
 
-    span {
-        white-space: nowrap;
-    }
+  span {
+    white-space: nowrap;
+  }
 }
 
 // ── Self Description ──────────────────────────────────────────────────────────
 .self-description {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 // ── Info Box ──────────────────────────────────────────────────────────────────
 .info-box {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    padding: 1rem 1.25rem;
-    background-color: $info-bg;
-    border: 1px solid $info-border;
-    border-radius: 1rem;
-    backdrop-filter: blur(10px);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background-color: $info-bg;
+  border: 1px solid $info-border;
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
 
-    &__icon {
-        flex-shrink: 0;
-        color: #60a5fa;
-        margin-top: 1px;
-        filter: drop-shadow(0 0 6px rgba(96, 165, 250, 0.4));
+  &__icon {
+    flex-shrink: 0;
+    color: #60a5fa;
+    margin-top: 1px;
+    filter: drop-shadow(0 0 6px rgba(96, 165, 250, 0.4));
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #bfdbfe;
+    line-height: 1.6;
+
+    strong {
+      color: $text-primary;
     }
-
-    p {
-        margin: 0;
-        font-size: 0.85rem;
-        color: #bfdbfe;
-        line-height: 1.6;
-
-        strong {
-            color: $text-primary;
-        }
-    }
+  }
 }
 
 // ── Generate Button ───────────────────────────────────────────────────────────
 .generate-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1rem 2rem;
-    background: linear-gradient(135deg, $accent 0%, $accent-alt 100%);
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 700;
-    border: none;
-    border-radius: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: $font-stack;
-    box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, $accent 0%, $accent-alt 100%);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: $font-stack;
+  box-shadow:
+    0 10px 25px -5px rgba(99, 102, 241, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
 
-    &:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 20px 40px -12px rgba(99, 102, 241, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.15) inset;
-    }
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      0 20px 40px -12px rgba(99, 102, 241, 0.5),
+      0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+  }
 
-    &:active {
-        transform: translateY(-1px) scale(0.98);
-    }
+  &:active {
+    transform: translateY(-1px) scale(0.98);
+  }
 }
 
-.recent-reports{
+.recent-reports {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 950px;
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .reports-list {
     display: flex;
-    flex-direction: column;
     gap: 1rem;
-    width: 100%;
-    max-width: 950px;
+    flex-wrap: wrap;
 
-    h2 {
-        font-size: 1.25rem;
+    .report-item {
+      background-color: $bg-card;
+      border: 1px solid $border-color;
+      border-radius: 1rem;
+      padding: 1.25rem;
+      flex: 1 1 280px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+      &:hover {
+        transform: translateY(-4px);
+        border-color: $accent;
+        box-shadow:
+          0 20px 25px -5px rgba(0, 0, 0, 0.2),
+          0 0 0 1px rgba(99, 102, 241, 0.2) inset;
+      }
+
+      h3 {
+        font-size: 1.05rem;
         font-weight: 700;
+      }
+
+      .report-meta {
+        font-size: 0.85rem;
+        color: $text-muted;
+      }
+
+      .match-score {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: $accent;
+        align-items: flex-start;
+      }
     }
-
-    .reports-list{
-        display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
-
-        .report-item{
-            background-color: $bg-card;
-            border: 1px solid $border-color;
-            border-radius: 1rem;
-            padding: 1.25rem;
-            flex: 1 1 280px;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-
-            &:hover {
-                transform: translateY(-4px);
-                border-color: $accent;
-                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(99, 102, 241, 0.2) inset;
-            }
-
-            h3 {
-                font-size: 1.05rem;
-                font-weight: 700;
-            }
-
-            .report-meta {
-                font-size: 0.85rem;
-                color: $text-muted;
-            }
-
-            .match-score {
-                font-size: 0.9rem;
-                font-weight: 700;
-                color: $accent;
-                align-items: flex-start;
-            }
-        }
-    }
+  }
 }
 
 // ── Error Message ─────────────────────────────────────────────────────────────
 .error-message {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1rem 1.25rem;
-    background-color: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    border-radius: 1rem;
-    color: #fca5a5;
-    font-weight: 600;
-    width: 100%;
-    max-width: 950px;
-    svg {
-        flex-shrink: 0;
-    }
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 1rem;
+  color: #fca5a5;
+  font-weight: 600;
+  width: 100%;
+  max-width: 950px;
+  svg {
+    flex-shrink: 0;
+  }
 }
 
 // ── Page Footer ───────────────────────────────────────────────────────────────
 .page-footer {
-    display: flex;
-    gap: 2rem;
-    margin-top: 1rem;
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
 
-    a {
-        font-size: 0.85rem;
-        color: $text-muted;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        font-weight: 500;
+  a {
+    font-size: 0.85rem;
+    color: $text-muted;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
 
-        &:hover {
-            color: $accent;
-        }
+    &:hover {
+      color: $accent;
     }
+  }
 }

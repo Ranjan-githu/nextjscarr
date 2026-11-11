@@ -186,6 +186,8 @@ async function connectDB() {
 __turbopack_context__.s([
     "Blacklist",
     ()=>Blacklist,
+    "Feedback",
+    ()=>Feedback,
     "InterviewReport",
     ()=>InterviewReport,
     "User",
@@ -284,6 +286,32 @@ const reportSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mongo
     timestamps: true
 });
 const InterviewReport = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.InterviewReport || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model('InterviewReport', reportSchema);
+const feedbackSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].Schema({
+    user: {
+        type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].Schema.Types.ObjectId,
+        ref: 'users',
+        required: true,
+        unique: true
+    },
+    rating: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 5
+    },
+    comment: {
+        type: String,
+        required: true,
+        trim: true,
+        maxlength: 1000
+    }
+}, {
+    timestamps: true
+});
+feedbackSchema.index({
+    updatedAt: -1
+});
+const Feedback = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.Feedback || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model('Feedback', feedbackSchema);
 }),
 ];
 
