@@ -9,8 +9,10 @@ flowchart LR
     User[Browser] --> Pages[Next.js Pages and Components]
     Pages --> Auth[Authentication API Routes]
     Pages --> Interview[Interview API Routes]
+    Pages --> Feedback[Feedback API Route]
     Auth --> DB[(MongoDB)]
     Interview --> DB
+    Feedback --> DB
     Interview --> PDF[Resume PDF Extraction and Generation]
     Interview --> Gemini[Google Gemini API]
 ```
@@ -31,6 +33,7 @@ flowchart TB
     Next --> Pages[App Router Pages]
     Next --> Routes[Server Route Handlers]
     Routes --> Mongo[(MongoDB Atlas)]
+    Browser -. "10-second polling" .-> Routes
     Routes --> Gemini[Google Gemini API]
     Routes --> BrowserPDF[Browser/Puppeteer PDF Runtime]
 ```
@@ -57,6 +60,7 @@ Reusable React state providers live here:
 
 - `auth-provider.jsx` tracks authentication UI state.
 - `interview-provider.jsx` tracks report and interview loading state.
+- `feedback-board.jsx` submits reviews and refreshes the shared feedback board while visible.
 
 These providers are imported by `app/layout.jsx` and run in the browser where marked with `'use client'`.
 
@@ -131,6 +135,10 @@ InterviewReport
 ├── skillGaps
 └── preparationPlan
 ```
+
+## Feedback Flow
+
+Authenticated users can create or update one app-wide review with a 1–5 star rating and a comment of up to 1000 characters. MongoDB stores the review against its user account. The API returns usernames (not email addresses), review timestamps, the latest 100 comments, and the average rating/count. The dashboard polls the API every 10 seconds while visible, which is compatible with Vercel's serverless execution model and does not require persistent WebSocket infrastructure.
 
 ## Report Ownership Model
 

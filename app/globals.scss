@@ -131,3 +131,126 @@ body,
 .link-container {
   margin-top: 1rem;
 }
+
+.feedback-board {
+  width: 100%;
+  margin: 0 auto 3rem;
+  padding: 1.5rem;
+  border: 1px solid #34405a;
+  border-radius: 16px;
+  background: rgba(20, 27, 45, 0.92);
+}
+.feedback-board__header,
+.feedback-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.feedback-board__eyebrow,
+.feedback-live-status,
+.feedback-card time {
+  color: #aab5ca;
+  font-size: 0.875rem;
+}
+.feedback-board__summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.feedback-board__summary > strong {
+  font-size: 1.5rem;
+}
+.feedback-stars {
+  display: inline-flex;
+  gap: 0.2rem;
+  color: #64748b;
+}
+.feedback-star {
+  color: #64748b;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+.feedback-star.is-selected {
+  color: #fbbf24;
+}
+button.feedback-star {
+  padding: 0.1rem;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+button.feedback-star:focus-visible {
+  outline: 2px solid #ff7aa2;
+  outline-offset: 2px;
+}
+.feedback-live-status {
+  margin-top: 0.5rem;
+}
+.feedback-form {
+  display: grid;
+  gap: 0.9rem;
+  margin: 1.5rem 0;
+  padding: 1.25rem;
+  border-radius: 12px;
+  background: #0f1627;
+}
+.feedback-form__rating {
+  display: grid;
+  gap: 0.5rem;
+  border: 0;
+}
+.feedback-form__comment {
+  display: grid;
+  gap: 0.5rem;
+}
+.feedback-form__comment textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #34405a;
+  border-radius: 8px;
+  background: #0b1020;
+  color: white;
+  font: inherit;
+  resize: vertical;
+}
+.feedback-form__comment span {
+  justify-self: end;
+  color: #aab5ca;
+  font-size: 0.8rem;
+}
+.feedback-form button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+.feedback-success {
+  color: #86efac;
+}
+.feedback-list {
+  display: grid;
+  gap: 0.75rem;
+}
+.feedback-card {
+  padding: 1rem;
+  border: 1px solid #34405a;
+  border-radius: 10px;
+  background: #0f1627;
+}
+.feedback-card h4 {
+  margin-bottom: 0.25rem;
+}
+.feedback-card > p {
+  margin-top: 0.75rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+@media (max-width: 600px) {
+  .feedback-board {
+    padding: 1rem;
+  }
+  .feedback-board__header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

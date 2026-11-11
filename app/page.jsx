@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import FeedbackBoard from '../components/feedback-board';
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -166,6 +167,7 @@ export default function Home() {
           </Link>
         ))}
       </section>
+      <FeedbackBoard />
     </main>
   );
 }

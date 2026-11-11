@@ -1,0 +1,10 @@
+{
+  "/api/auth/get-me/route": "app/api/auth/get-me/route.js",
+  "/api/auth/login/route": "app/api/auth/login/route.js",
+  "/api/feedback/route": "app/api/feedback/route.js",
+  "/api/interview/report/[interviewId]/route": "app/api/interview/report/[interviewId]/route.js",
+  "/api/interview/route": "app/api/interview/route.js",
+  "/interview/[interviewId]/page": "app/interview/[interviewId]/page.js",
+  "/login/page": "app/login/page.js",
+  "/page": "app/page.js"
+}
